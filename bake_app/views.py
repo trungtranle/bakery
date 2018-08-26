@@ -111,7 +111,7 @@ def chart(request):
         product_count.append(count)
     
     #Plot Chart
-   ''' chart = plt.figure()
+    '''chart = plt.figure()
     plt.bar(product_name, product_count)
     plt.title('Sale for each item \n' + datetime.datetime.now().strftime('%Y-%m-%d %H-%M-%S'))
     plt.xlabel('Item')
