@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block body_block %}
+<div class="container sm-padding">
+    <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-6">
+            <h3>Customer's information</h3>
+            {% if user.is_authenticated %}
+            <h4>Please check your shipping information </h4>
+            <form action="" method="post">       
+                
+                {% for field in form %}
+                    <div class="row">
+                        <div class="col">{{field.label}}</div>
+                        <div class="col"><span class="input disable-field">{{field}}</span></div>
+                    </div>
+                {% endfor %}
+                
+                {% csrf_token %}
+                <p></p>
+                <input type="submit" class="btn btn-primary" value="Place Order">
+            </form>
+            {% else %}
+            <form action="" method="post">
+                <h4> Enter shipping information</h4>
+                <p>Already a member? <a href="{% url 'login'%}"> Login here </a></p>
+                {% for field in form %}
+                    <div class="row">
+                        <div class="col">{{field.label}}</div>
+                        <div class="col"><span class="input">{{field}}</span></div>
+                    </div>
+                {% endfor %}
+                {% csrf_token %}
+                <p></p>
+                <input type="submit" class="btn btn-primary" value="Place Order">
+            </form>
+           
+            {% endif %}
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6">
+            
+            <h4>Order detail </h4>
+            <ul>
+                {% for item in cart %}
+                <li> {{item.quantity}} {{item.product.name}}: {{item.total_price|intcomma}} vnđ</li>
+                {% endfor %}
+            </ul>
+            <br>
+            
+            <p><h5>Total: {{cart.get_total|intcomma}} vnđ </h5></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

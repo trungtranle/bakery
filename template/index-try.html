@@ -1,0 +1,38 @@
+{% extends 'index.html' %}
+
+{% block cake %}
+<div id="cake" class="section md-padding">
+		<div class="container">
+
+			<!-- Row -->
+			<div class="row">
+
+				<!-- Section header -->
+				<div class="section-header text-center">
+					<h2 class="title">Cakes</h2>
+				</div>
+				<!-- /Section header -->
+				{% for cake in cakes %}
+				<div class="col-md-4 col-xs-6 work">
+					<img class="img-responsive" src="{{cake.image.url}}" alt="img">
+					<div class="overlay"></div>
+					<div class="work-content">
+						
+						<h3>{{cake.name}}</h3>
+						<div class="work-link">
+							<a href="{% url 'detail' cake.pk %}">Details</a>
+							
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+
+			</div>
+			<!-- /Row -->
+
+		</div>
+		<!-- /Container -->
+
+    </div>
+    
+{% endblock %}

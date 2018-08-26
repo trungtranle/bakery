@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+<div class="container sm-padding">
+    {% if registered %}
+        <h3>Thank you for registering</h4>
+    {% else %}
+    <h3>Customer register</h3>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="row">
+            
+            <div class="col">{{form_user.username.label}}</div>
+            <div class="col">{{form_user.username}}</div>
+            {% if form_user.username.errors %}
+            <div class="alert alert-danger" role="alert">{{form_user.username.errors}}</div>
+            {% endif %}
+        </div>
+
+        <div class="row">
+            
+            <div class="col">{{form_user.email.label}}</div>
+            <div class="col">{{form_user.email}}</div>
+            {% if form_user.email.errors %}
+            <div class="alert alert-danger" role="alert">{{form_user.email.errors}}</div>
+            {% endif %}
+        </div>
+
+        <div class="row">
+            {{form_user.password.errors}}
+            <div class="col">{{form_user.password.label}}</div>
+            <div class="col">{{form_user.password}}</div>
+            {% if form_user.password.errors %}
+            <div class="alert alert-danger" role="alert">{{form_user.password.errors}}</div>
+            {% endif %}
+        </div>
+
+        <div class="row">
+            
+            <div class="col">{{form_user.password_confirm.label}}</div>
+            <div class="col">{{form_user.password_confirm}}</div>
+            {% if form_user.password_confirm.errors %}
+            <div class="alert alert-danger" role="alert">{{form_user.password_confirm.errors}}</div>
+            {% endif %}
+        </div>
+        <hr>
+        <div class="row">
+            {{form_user.first_name.errors}}
+            <div class="col">{{form_user.first_name.label}}</div>
+            <div class="col">{{form_user.first_name}}</div>
+        </div>
+
+        <div class="row">
+            {{form_user.last_name.errors}}
+            <div class="col">{{form_user.last_name.label}}</div>
+            <div class="col">{{form_user.last_name}}</div>
+        </div>
+        {% for field in form_profile %}
+        <div class="row">
+            <div class="col">{{field.label}}</div>
+            <div class="col"><span class="input">{{field}}</span></div>
+        </div>
+        {% endfor %}   
+        <br>
+        <input type="submit" value="Register" class="btn btn-primary">
+    </form>
+    {% endif %}
+</div>
+{% endblock %}

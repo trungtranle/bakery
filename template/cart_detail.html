@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block body_block %}
+<div class="container sm-padding">
+    <h4>Cart detail</h4>
+    <table class="table">
+        <thead>
+            <th></th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price (vnđ)</th>
+            <th>Total (vnđ)</th>
+            <th>Remove</th>
+        </thead>
+
+        <tbody>
+            
+            {% for item in cart %}
+          
+            <tr>
+                <td>
+                    <a href="{% url 'detail' item.product.pk %}"><img src="{{item.product.image.url}}" alt="pic" style = "width: 10vmax;"></a>
+                </td>
+
+                <td>
+                    {{item.product.name}}
+                </td>
+
+                <td>
+                    <form action="{% url 'cart:cart_add' item.product.pk %}" method="post">
+                        {{item.update_quantity_form.quantity}}
+                        {{item.update_quantity_form.update}}
+                        {% csrf_token %}
+
+                        <input type="submit" class="btn btn-defaut" value = 'Update Quantity'>
+                    </form>
+                </td>
+                <td>
+                    {{item.price|intcomma}} vnđ
+                </td>
+                <td>
+                    {{item.total_price|intcomma}} vnđ
+                </td>
+                <td>
+                    <a href="{% url 'cart:cart_remove' item.product.pk %}">Remove</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class = container">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <p> Total:{{total|intcomma}} vnđ </p>
+            <a href="{% url 'index'%}" class="btn btn-default">Continue browsing</a>
+            <a href="{% url 'order'%}" class="btn btn-primary">Check out</a>
+            
+        </div>
+
+    </div>
+</div>
+{% endblock %}

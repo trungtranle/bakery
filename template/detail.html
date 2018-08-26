@@ -1,0 +1,33 @@
+
+{% extends 'base.html' %}
+{% load humanize %} 
+
+{% block body_block %}
+
+{% if item %}
+<div class="container sm-padding h-100" style="display:flex;">
+    <div class="row align-items-center text-center pricing">
+        <div class="col-sm-12 price-title">
+            <h3>{{item.name}}</h3>
+        </div>
+        <div class="col-sm-6">
+            <div>
+                    <img src="{{item.image.url|intcomma}}" alt="img" style="width: 300px">
+            </div>
+            
+        </div>
+        <div class="col-sm-6">
+            <p></p>
+            <p>{{item.description}}</p>
+            <p>Price: {{item.price|intcomma}} vnđ</p>
+            <form action="{% url 'cart:cart_add' item.pk %}" method="post">
+                {% csrf_token %}
+                {{form}} <br>
+                <input type="submit" value = 'Add to cart' class = "btn btn-primary">
+            </form>
+        </div>
+
+    </div>
+</div>
+{% endif %}
+{% endblock %}

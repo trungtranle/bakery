@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+    <div class="container">
+        <h4>RSS</h4>
+        {% if feed %}
+
+        <ol>
+            {% for web in feed.entries %}
+            <li><a href="{{web.link}}">{{web.title}}</a></li>
+            {% endfor %}
+        </ol>
+        {% endif %}
+    </div>
+{% endblock %}

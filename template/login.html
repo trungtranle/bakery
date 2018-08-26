@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+<div class="container sm-padding">
+    <h4>Login</h4>
+
+    <form action="{% url 'login' %}" method="post">
+        <div class="row">
+            <div class="col"><label for="username">Username</label></div>
+            <div class="col"><input type="text" name="username" id="" placeholder="Enter Username"></div>
+        </div>
+
+        <div class="row">
+            <div class="col"><label for="password">Password</label></div>
+            <div class="col"><input type="password" name="password" id="" placeholder="Enter Password"></div>
+        </div>
+        {% if result %}
+        <div class="alert alert-danger" role="alert">
+            {{result}}
+        </div>
+        {% endif %}
+        {% csrf_token %}
+        <br>
+        <input type="submit" value="Login" class="btn btn-primary">
+    </form>
+</div>
+{% endblock %}

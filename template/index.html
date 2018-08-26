@@ -1,0 +1,420 @@
+{% load staticfiles%}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+	<title>the baker's bakery</title>
+
+	<!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CVarela+Round" rel="stylesheet">
+
+	<!-- Bootstrap -->
+	<link type="text/css" rel="stylesheet" href="{%static 'css/bootstrap.min.css' %}" />
+
+	<!-- Owl Carousel -->
+	<link type="text/css" rel="stylesheet" href="{%static 'css/owl.carousel.css' %}" />
+	<link type="text/css" rel="stylesheet" href="{%static 'css/owl.theme.default.css' %}" />
+
+	<!-- Magnific Popup -->
+	<link type="text/css" rel="stylesheet" href="{%static 'css/magnific-popup.css' %}" />
+
+	<!-- Font Awesome Icon -->
+	<link rel="stylesheet" href="{%static 'css/font-awesome.min.css' %}">
+
+	<!-- Custom stlylesheet -->
+	<link type="text/css" rel="stylesheet" href="{%static 'css/style.css' %}" />
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+	<!-- page icon -->
+	<link rel="icon" href="{% static 'img/icon.png'%}">
+</head>
+
+<body>
+	<!-- Header -->
+	<header id="home">
+		<!-- Background Image -->
+		<div class="bg-img" style="background-image: url('{% static 'img/background1.png'%}');">
+			<div class="overlay"></div>
+		</div>
+		<!-- /Background Image -->
+
+		<!-- Nav -->
+		<nav id="nav" class="navbar nav-transparent">
+			<div class="container">
+
+				<div class="navbar-header">
+					<!-- Logo -->
+					<div class="navbar-brand">
+						<a href="{% url 'index'%}">
+							<img class="logo" src="{%static 'img/logo.png' %}" alt="logo">
+							<img class="logo-alt" src="{%static 'img/logo-alt.png' %}" alt="logo">
+						</a>
+					</div>
+					<!-- /Logo -->
+
+					<!-- Collapse nav button -->
+					<div class="nav-collapse">
+						<span></span>
+					</div>
+					<!-- /Collapse nav button -->
+				</div>
+
+				<!--  Main navigation  -->
+				<ul class="main-nav nav navbar-nav navbar-right">
+					<li><a href="#home">Home</a></li>
+					<li><a href="#cake">Cakes</a></li>
+					<li><a href="#pie">Pies and pastries</a></li>
+					<li><a href="#dessert">Desserts</a></li>
+					<li><a href="#drink">Drinks</a></li>
+					<li><a href="#contact">Contact</a></li>
+					
+					{% if user.is_authenticated %}
+					<li><a href="">Hi {{user.first_name}}</a></li>
+					<li><a href="{% url 'logout'%}">Logout</a></li>
+						{% if user.is_superuser %}
+						<li class = "has-dropdown"><a href="{% url 'admin:index' %}">Administration</a>
+							<ul class = "dropdown">
+								<li><a href="{% url 'admin:index' %}">Admin Panel</a></li>
+								<li><a href="{% url 'chart' %}">Chart</a></li>
+							</ul>	
+						</li>
+						{% endif %}
+					{% else %}
+					<li><a href="{% url 'login' %}">Login</a></li>
+					<li><a href="{% url 'register' %}">Register</a></li>
+					{% endif %}
+					<li><a href="{% url 'read_rss'%}">RSS</a></li>
+					<li id='cart-symbol'><a href="{% url 'cart:cart_detail' %}"> <i class='fa fa-shopping-cart'></i> Cart </a></li>
+					<li id='cart'>
+						<a href="{% url 'cart:cart_detail' %}">
+						{% if cart %} 
+						<i class='fa fa-shopping-cart'></i> {{cart|length}} products, {{cart.get_total|intcomma}} vnđ 
+						{% else %} <i class='fa fa-shopping-cart'></i> Cart Empty
+						{% endif %}
+						</a>
+					</li>
+				</ul>
+				<!-- /Main navigation -->
+
+			</div>
+		</nav>
+		<!-- /Nav -->
+
+		<!-- home wrapper -->
+		<div class="home-wrapper">
+			<div class="container">
+				<div class="row">
+
+					<!-- home content -->
+					<div class="col-md-10 col-md-offset-1">
+						<div class="home-content">
+							<h3 class="white-text"> <em>Our philosophy:</em></h3>
+							<h1 class="white-text">There is a cake<br>for every need!</h1>
+					
+							<a href="#cake" class="white-btn">Explore</a>
+					
+						</div>
+					</div>
+					<!-- /home content -->
+					
+					</div>
+					</div>
+					</div>
+					<!-- /home wrapper -->
+					
+					</header>
+					<!-- /Header -->
+					
+					<!-- Cakes -->
+					<div id="cake" class="section sm-padding">
+						<div class="container">
+					
+							<!-- Row -->
+							<div class="row">
+					
+								<!-- Section header -->
+								<div class="section-header text-center">
+									<h2 class="title">Cakes</h2>
+								</div>
+								<!-- /Section header -->
+								{% for cake in cakes %}
+								<div class="col-md-4 col-xs-6 work">
+									<img class="img-responsive" src="{{cake.image.url}}" alt="img">
+									<div class="overlay"></div>
+									<div class="work-content">
+					
+										<h3>{{cake.name}}</h3>
+										<div class="work-link">
+											<a href="{% url 'detail' cake.pk %}">Details</a>
+					
+										</div>
+									</div>
+								</div>
+								{% endfor %}
+					
+							</div>
+							<!-- /Row -->
+					
+						</div>
+						<!-- /Container -->
+					
+					</div>
+					
+					<!--break -->
+					<div id="numbers" class="section sm-padding">
+					
+						<!-- Background Image -->
+						<div class="bg-img" style="background-image: url('{% static 'img/back1.jpg'%}');">
+							<div class="overlay"></div>
+						</div>
+						<!-- /Background Image -->
+					
+					</div>
+					<!--Pie-->
+					
+					<div id="pie" class="section sm-padding">
+						<div class="container">
+					
+							<!-- Row -->
+							<div class="row">
+					
+								<!-- Section header -->
+								<div class="section-header text-center">
+									<h2 class="title">Pies and pastries</h2>
+								</div>
+								<!-- /Section header -->
+								{% for pie in pies %}
+								<div class="col-md-4 col-xs-6 work">
+									<img class="img-responsive" src="{{pie.image.url}}" alt="img">
+									<div class="overlay"></div>
+									<div class="work-content">
+					
+										<h3>{{pie.name}}</h3>
+										<div class="work-link">
+											<a href="{% url 'detail' pie.pk %}">Details</a>
+					
+										</div>
+									</div>
+								</div>
+								{% endfor %}
+					
+							</div>
+							<!-- /Row -->
+					
+						</div>
+						<!-- /Container -->
+					
+					</div>
+					<!--break -->
+					<div id="numbers" class="section sm-padding">
+					
+						<!-- Background Image -->
+						<div class="bg-img" style="background-image: url('{% static 'img/back2.jpg'%}');">
+							<div class="overlay"></div>
+						</div>
+						<!-- /Background Image -->
+					
+					</div>
+					
+					<!--Dessert-->
+					<div id="dessert" class="section sm-padding">
+						<div class="container">
+					
+							<!-- Row -->
+							<div class="row">
+					
+								<!-- Section header -->
+								<div class="section-header text-center">
+									<h2 class="title">Dessert</h2>
+								</div>
+								<!-- /Section header -->
+								{% for dessert in desserts %}
+								<div class="col-md-4 col-xs-6 work">
+									<img class="img-responsive" src="{{dessert.image.url}}" alt="img">
+									<div class="overlay"></div>
+									<div class="work-content">
+					
+										<h3>{{dessert.name}}</h3>
+										<div class="work-link">
+											<a href="{% url 'detail' dessert.pk %}">Details</a>
+					
+										</div>
+									</div>
+								</div>
+								{% endfor %}
+					
+							</div>
+							<!-- /Row -->
+					
+						</div>
+						<!-- /Container -->
+					
+					</div>
+					<!--break -->
+					<div id="numbers" class="section sm-padding">
+					
+						<!-- Background Image -->
+						<div class="bg-img" style="background-image: url('{% static 'img/back3.jpg'%}');">
+							<div class="overlay"></div>
+						</div>
+						<!-- /Background Image -->
+					
+					</div>
+					
+					<!-- Drinks -->
+					<div id="drink" class="section sm-padding">
+						<div class="container">
+					
+							<!-- Row -->
+							<div class="row">
+					
+								<!-- Section header -->
+								<div class="section-header text-center">
+									<h2 class="title">Drinks</h2>
+								</div>
+								<!-- /Section header -->
+								{% for drink in drinks %}
+								<div class="col-md-4 col-xs-6 work">
+									<img class="img-responsive" src="{{drink.image.url}}" alt="img">
+									<div class="overlay"></div>
+									<div class="work-content">
+					
+										<h3>{{drink.name}}</h3>
+										<div class="work-link">
+											<a href="{% url 'detail' drink.pk %}">Details</a>
+					
+										</div>
+									</div>
+								</div>
+								{% endfor %}
+					
+							</div>
+							<!-- /Row -->
+					
+						</div>
+						<!-- /Container -->
+					
+					</div>
+					
+					<!--break -->
+					<div id="numbers" class="section sm-padding">
+					
+						<!-- Background Image -->
+						<div class="bg-img" style="background-image: url('{% static 'img/back4.jpg'%}');">
+							<div class="overlay"></div>
+						</div>
+						<!-- /Background Image -->
+					
+					</div>
+					
+					<div class="container sm-padding" id="contact">
+						<div class="row">
+							<!-- Section header -->
+							<div class="section-header text-center">
+								<h2 class="title">Contact us</h2>
+							</div>
+						</div>
+						<div class="row">
+					
+					
+							<div class="col-sm-4 col-md-4">
+								<div class="contact">
+									<i class="fa fa-mobile"></i>
+									<h3>0908 113 034</h3>
+								</div>
+							</div>
+					
+					
+					
+							<div class="col-sm-4 col-md-4">
+								<div class="contact">
+									<i class="fa fa-facebook"></i>
+									<h3><a href="https://www.facebook.com/le.trung13"> le Pâtisier </a></h3>
+								</div>
+							</div>
+					
+							<div class="col-sm-4 col-md-4">
+								<div class="contact">
+									<i class="fa fa-map-marker"></i>
+									<h3>Tan Phuoc, Ho Chi Minh City</h3>
+								</div>
+							</div>
+						</div>
+					
+					
+					
+					
+						<div class="google-maps">
+						
+				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.6438483195375!2d106.65823715024864!3d10.761907492293735!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752eeef4c6040f%3A0x888ba93a436d02f3!2zVMOibiBQaMaw4bubYyBwbGF6YQ!5e0!3m2!1sen!2s!4v1535132963945" width="2000" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+			</div>
+					</div>
+	
+	<!-- Footer -->
+	<footer id="footer" class="sm-padding bg-dark">
+	
+		<!-- Container -->
+		<div class="container">
+	
+			<!-- Row -->
+			<div class="row">
+	
+				<div class="col-md-12">
+	
+					<!-- footer logo -->
+					<div class="footer-logo">
+						<a href="{% url 'index' %}"><img src="{%static 'img/logo-alt.png' %}" alt="logo"></a>
+					</div>
+					<!-- /footer logo -->
+					<div class="footer-copyright">
+					<p>Trung Tran-Le</p>
+					<p>Saigon, 2018</p> 
+				</div>
+				</div>
+	
+			</div>
+			<!-- /Row -->
+	
+		</div>
+		<!-- /Container -->
+	
+	</footer>
+	<!-- /Footer -->
+	
+	<!-- Back to top -->
+	<div id="back-to-top"></div>
+	<!-- /Back to top -->
+	
+	<!-- Preloader -->
+	<div id="preloader">
+		<div class="preloader">
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+	</div>
+	<!-- /Preloader -->
+	
+	<!-- jQuery Plugins -->
+	<script type="text/javascript" src="{%static 'js/jquery.min.js' %}"></script>
+	<script type="text/javascript" src="{%static 'js/bootstrap.min.js' %}"></script>
+	<script type="text/javascript" src="{%static 'js/owl.carousel.min.js' %}"></script>
+	<script type="text/javascript" src="{%static 'js/jquery.magnific-popup.js' %}"></script>
+	<script type="text/javascript" src="{%static 'js/main.js' %}"></script>
+	
+	</body>
+	
+	</html>
