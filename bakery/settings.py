@@ -23,8 +23,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-with open('/etc/secret_key.txt') as f:
-    SECRET_KEY = f.read().strip()
+SECRET_KEY = 'v+km%2us%=26@av=h#jrwoczz0eo33%l5zge2qur-*!zdx%t6_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
