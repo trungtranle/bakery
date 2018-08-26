@@ -4,7 +4,7 @@ from cart import forms
 from bake_app.forms import UserFrom, UserProfileInfoForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from django.conf import settings
 from order.models import OrderItem
 import datetime
@@ -111,14 +111,14 @@ def chart(request):
         product_count.append(count)
     
     #Plot Chart
-    chart = plt.figure()
+   ''' chart = plt.figure()
     plt.bar(product_name, product_count)
     plt.title('Sale for each item \n' + datetime.datetime.now().strftime('%Y-%m-%d %H-%M-%S'))
     plt.xlabel('Item')
     plt.ylabel('Sales')
     plt.xticks(rotation=90)
     plt.tight_layout()
-    chart.savefig('static/chart/chart.png', type = 'png')
+    chart.savefig('static/chart/chart.png', type = 'png')'''
 
     #Excel Export
     list_to_write = []
