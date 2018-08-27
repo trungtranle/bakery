@@ -4,6 +4,8 @@ from cart import forms
 from bake_app.forms import UserFrom, UserProfileInfoForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
+import matplotlib
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
 from django.conf import settings
 from order.models import OrderItem
