@@ -28,7 +28,7 @@ SECRET_KEY = 'v+km%2us%=26@av=h#jrwoczz0eo33%l5zge2qur-*!zdx%t6_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['35.227.179.123',]
+ALLOWED_HOSTS = ['35.227.179.123','https://8000-dot-4333055-dot-devshell.appspot.com', '120.0.0.1',]
 
 
 # Application definition
