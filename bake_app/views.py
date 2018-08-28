@@ -120,7 +120,7 @@ def chart(request):
     plt.ylabel('Sales')
     plt.xticks(rotation=90)
     plt.tight_layout()
-    chart.savefig('static/chart/chart.png', type = 'png')
+    chart.savefig('static_root/chart/chart.png', type = 'png')
 
     #Excel Export
     list_to_write = []
