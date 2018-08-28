@@ -13,6 +13,7 @@ import datetime
 import xlsxwriter
 import os
 import feedparser
+from django.conf import settings
 
 # Create your views here.
 def main(request):
@@ -120,7 +121,7 @@ def chart(request):
     plt.ylabel('Sales')
     plt.xticks(rotation=90)
     plt.tight_layout()
-    chart.savefig('static_root/chart/chart.png', type = 'png')
+    chart.savefig(settings.STATIC_ROOT, type = 'png')
 
     #Excel Export
     list_to_write = []
