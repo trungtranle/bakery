@@ -121,8 +121,8 @@ def chart(request):
     plt.ylabel('Sales')
     plt.xticks(rotation=90)
     plt.tight_layout()
-    chart.savefig(settings.STATIC_ROOT, type = 'png')
-
+    chart.savefig(settings.STATIC_ROOT + '\chart.png', type = 'png')
+    
     #Excel Export
     list_to_write = []
     header = ['id', 'name','sales']
