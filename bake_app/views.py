@@ -114,6 +114,7 @@ def chart(request):
         product_count.append(count)
     
     #Plot Chart
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     chart = plt.figure()
     plt.bar(product_name, product_count)
     plt.title('Sale for each item \n' + datetime.datetime.now().strftime('%Y-%m-%d %H-%M-%S'))
@@ -121,7 +122,7 @@ def chart(request):
     plt.ylabel('Sales')
     plt.xticks(rotation=90)
     plt.tight_layout()
-    chart.savefig(settings.STATIC_ROOT + '\chart.png', type = 'png')
+    chart.savefig(settings.MEDIA_ROOT + '\chart.png', type = 'png')
     
     #Excel Export
     list_to_write = []
