@@ -21,7 +21,7 @@ def create_order(request):
                 OrderItem.objects.create(order=order, product = item['product'], price = item['price'], quantity = item['quantity'])
             
             #send email
-            '''
+            
             subject = "We've received your order"
             to = [order.email]
             from_email = 'trung.tranle1310@gmail.com'
@@ -31,7 +31,7 @@ def create_order(request):
             msg.content_subtype = 'html'
             msg.send()
             print('SENT')
-            '''
+            
             #clear cart
             cart.clear()
 
