@@ -122,7 +122,10 @@ def chart(request):
     plt.ylabel('Sales')
     plt.xticks(rotation=90)
     plt.tight_layout()
-    chart.savefig(settings.MEDIA_ROOT + '\chart.png', type = 'png')
+    file_name = settings.STATIC_ROOT + '/chart.png'
+    print(file_name)
+    chart.savefig(file_name, type = 'png')
+    print('OK')
     
     #Excel Export
     list_to_write = []
@@ -142,7 +145,7 @@ def chart(request):
         write_excel_file(address, list_to_write)
 
         result = 'File Exported at ' + address
-    return render(request, 'chart.html', {'result': result})
+    return render(request, 'chart.html', {'result': result, 'name' : file_name})
 
 def write_excel_file(address, list_ghi):
     workbook = xlsxwriter.Workbook(address)
